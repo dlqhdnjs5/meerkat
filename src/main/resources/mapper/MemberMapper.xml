@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.meerkat.member.repository.MemberRepository">
+    <select id="isExistMemberCount" parameterType="string" resultType="integer">
+        SELECT COUNT(1)
+          FROM member
+         WHERE email = #{email}
+    </select>
+
+    <select id="selectMemberByEmail" parameterType="string" resultType="MemberEntity">
+        SELECT member_no
+             , email
+             , name
+             , img_path
+             , type_code
+             , status_code
+             , reg_time
+             , last_login_time
+          FROM member
+         WHERE email = #{email}
+           AND status_code = 'ACTIVE'
+    </select>
+
+    <insert id="insertMember" parameterType="MemberEntity">
+        INSERT INTO member
+        ( email
+        , name
+        , img_path
+        , type_code
+        , status_code
+        , reg_time
+        , last_login_time
+        )
+        VALUES
+        ( #{memberEntity.email}
+        , #{memberEntity.name}
+        , #{memberEntity.imgPath}
+        , #{memberEntity.typeCode}
+        , #{memberEntity.statusCode}
+        , NOW()
+        , NOW()
+        )
+    </insert>
+
+    <insert id="insertMemberAndGenKey" parameterType="MemberEntity" useGeneratedKeys="true" keyProperty="memberNo" keyColumn="member_no">
+        INSERT INTO member
+        ( email
+        , name
+        , img_path
+        , type_code
+        , status_code
+        , reg_time
+        , last_login_time
+        )
+        VALUES
+        ( #{memberEntity.email}
+        , #{memberEntity.name}
+        , #{memberEntity.imgPath}
+        , #{memberEntity.typeCode}
+        , #{memberEntity.statusCode}
+        , NOW()
+        , null
+        )
+    </insert>
+    
+    <update id="updateLastLoginTime" parameterType="MemberEntity">
+        UPDATE member
+           SET last_login_time = NOW()
+         WHERE member_no = #{memberEntity.memberNo}
+    </update>
+
+    <select id="selectActiveMemberByEmail" parameterType="string" resultType="MemberEntity">
+        SELECT member_no
+             , email
+             , name
+             , img_path
+             , type_code
+             , status_code
+             , reg_time
+             , last_login_time
+          FROM member
+         WHERE email = #{email}
+           AND status_code = 'ACTIVE'
+    </select>
+</mapper>
