@@ -2,7 +2,7 @@ package com.project.meerkat.config
 
 import com.project.meerkat.common.service.JwtService
 import com.project.meerkat.interceptor.ContextHoldInterceptor
-import com.project.meerkat.member.service.MemberSerivce
+import com.project.meerkat.service.member.MemberSerivce
 import org.modelmapper.ModelMapper
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry

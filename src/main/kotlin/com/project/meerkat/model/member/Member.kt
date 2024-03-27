@@ -1,12 +1,12 @@
-package com.project.meerkat.member.model
+package com.project.meerkat.model.member
 
-import com.project.meerkat.member.constant.MemberStatusCode
-import com.project.meerkat.member.constant.MemberTypeCode
+import com.project.meerkat.constant.member.MemberStatusCode
+import com.project.meerkat.constant.member.MemberTypeCode
 import org.apache.ibatis.type.Alias
 import java.time.LocalDateTime
 
-@Alias("MemberEntity")
-data class MemberEntity(
+@Alias("Member")
+data class Member(
     var memberNo: String?,
     var email: String,
     var name: String,

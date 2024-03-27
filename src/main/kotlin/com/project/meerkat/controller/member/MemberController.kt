@@ -1,9 +1,9 @@
-package com.project.meerkat.member.controller
+package com.project.meerkat.controller.member
 
 import com.project.meerkat.common.model.UserInfo
-import com.project.meerkat.member.model.AddMemberRequest
-import com.project.meerkat.member.model.LoginMemberRequest
-import com.project.meerkat.member.service.MemberSerivce
+import com.project.meerkat.model.member.AddMemberRequest
+import com.project.meerkat.model.member.LoginMemberRequest
+import com.project.meerkat.service.member.MemberSerivce
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import javax.validation.constraints.NotNull

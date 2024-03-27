@@ -1,7 +1,7 @@
-package com.project.meerkat.member.model
+package com.project.meerkat.model.member
 
-import com.project.meerkat.member.constant.MemberStatusCode
-import com.project.meerkat.member.constant.MemberTypeCode
+import com.project.meerkat.constant.member.MemberStatusCode
+import com.project.meerkat.constant.member.MemberTypeCode
 import java.time.LocalDateTime
 import javax.validation.constraints.NotBlank
 

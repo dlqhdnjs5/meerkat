@@ -1,11 +1,11 @@
 package com.project.meerkat.model.notification
 
 data class AddNotificationRequest(
-    var bcode: String?,
-    var bname: String?,
-    var notiName: String?,
-    var notiTime: String?,
-    var postNo: String?,
-    var sigunguCode: String?,
-    var userAddress: String?
+    val bcode: String,
+    val bname: String,
+    val name: String,
+    val notiTime: String,
+    val postNo: String,
+    val sigunguCode: String,
+    val userAddress: String
 )
