@@ -3,7 +3,7 @@ package com.project.meerkat.interceptor
 import com.project.meerkat.common.model.UserInfo
 import com.project.meerkat.common.util.ContextHolderUtil
 import com.project.meerkat.common.service.JwtService
-import com.project.meerkat.member.service.MemberSerivce
+import com.project.meerkat.service.member.MemberSerivce
 import org.modelmapper.ModelMapper
 import org.springframework.context.annotation.Configuration
 import org.springframework.util.ObjectUtils

@@ -1,11 +1,16 @@
 package com.project.meerkat.service.notification
 
+import com.project.meerkat.common.util.ContextHolderUtil
 import com.project.meerkat.model.notification.AddNotificationRequest
 import com.project.meerkat.model.notification.NotificationEntity
 import com.project.meerkat.repository.notification.NotificationJpaRepository
+import org.apache.commons.lang3.ObjectUtils
+import org.apache.commons.lang3.StringUtils
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import org.springframework.util.CollectionUtils
 import java.time.LocalDateTime
+import java.util.Collections
 import javax.transaction.Transactional
 
 @Service
@@ -16,13 +21,30 @@ class NotificationService(
     @Transactional
     fun addNotification(addNotificationRequest: AddNotificationRequest) {
         val notificationEntity = modelMapper.map(addNotificationRequest, NotificationEntity::class.java)
+        val userInfo = ContextHolderUtil.getUserInfo()
+
+        if (ObjectUtils.isEmpty(userInfo) || StringUtils.isEmpty(userInfo?.memberNo)) {
+            throw IllegalStateException("NotificationService.addNotification() userInfo doesn't exist. check login. addNotificationRequest : $addNotificationRequest")
+        }
+
         val now = LocalDateTime.now()
         notificationEntity.apply {
             enable = true
             regTime = now
             modTime = now
+            memberNo = userInfo!!.memberNo
         }
 
         notificationJpaRepository.insertNotification(notificationEntity)
+    }
+
+    fun getNotifications(): MutableList<NotificationEntity>? {
+        val userInfo = ContextHolderUtil.getUserInfo()
+        if (ObjectUtils.isEmpty(userInfo) || StringUtils.isEmpty(userInfo?.memberNo)) {
+            throw IllegalStateException("NotificationService.addNotification() userInfo doesn't exist. check login.")
+        }
+
+        val notificationList = notificationJpaRepository.selectNotificationsByMemberNo(userInfo!!.memberNo)
+        return if (CollectionUtils.isEmpty(notificationList)) Collections.emptyList() else notificationList
     }
 }

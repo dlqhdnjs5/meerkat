@@ -4,6 +4,7 @@ import com.project.meerkat.model.notification.NotificationEntity
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import javax.persistence.TypedQuery
 
 @Repository
 class NotificationJpaRepository(
@@ -12,5 +13,13 @@ class NotificationJpaRepository(
     fun insertNotification(notificationEntity: NotificationEntity) {
         entityManager.persist(notificationEntity)
     }
+
+    fun selectNotificationsByMemberNo(memberNo: String): MutableList<NotificationEntity>? {
+        val jpql = "SELECT n FROM NotificationEntity n WHERE n.memberNo = :memberNo"
+        val query: TypedQuery<NotificationEntity> = entityManager.createQuery(jpql, NotificationEntity::class.java)
+        query.setParameter("memberNo", memberNo)
+        return query.resultList
+    }
+
 
 }

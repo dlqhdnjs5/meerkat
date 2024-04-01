@@ -16,6 +16,9 @@ data class NotificationEntity(
     @Column(name = "notification_no", nullable = false)
     val notificationNo: Long = 0,
 
+    @Column(name = "member_no")
+    var memberNo: String? = null,
+
     @Column(name = "name", nullable = false, length = 100)
     val name: String,
 
