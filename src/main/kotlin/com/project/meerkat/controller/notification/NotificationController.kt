@@ -16,7 +16,12 @@ class NotificationController(
     }
 
     @GetMapping
-    fun getNotifications(): MutableList<NotificationEntity>? {
+    fun getNotifications(): List<NotificationEntity>? {
         return notificationService.getNotifications()
+    }
+
+    @DeleteMapping("/{notificationNo}")
+    fun getNotifications(@PathVariable("notificationNo") notificationNo: String) {
+        notificationService.removeNotification(notificationNo)
     }
 }

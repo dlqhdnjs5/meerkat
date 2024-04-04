@@ -21,5 +21,10 @@ class NotificationJpaRepository(
         return query.resultList
     }
 
+    fun deleteNotification(notificationNo: String) {
+        val notificationEntity = entityManager.find(NotificationEntity::class.java, notificationNo)
+        entityManager.remove(notificationEntity)
+    }
+
 
 }

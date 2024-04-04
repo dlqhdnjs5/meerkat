@@ -14,7 +14,7 @@ data class NotificationEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notification_no", nullable = false)
-    val notificationNo: Long = 0,
+    val notificationNo: String? = null,
 
     @Column(name = "member_no")
     var memberNo: String? = null,
