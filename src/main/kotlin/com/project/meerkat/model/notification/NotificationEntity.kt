@@ -20,7 +20,7 @@ data class NotificationEntity(
     var memberNo: String? = null,
 
     @Column(name = "name", nullable = false, length = 100)
-    val name: String,
+    var name: String,
 
     @Column(name = "bname", nullable = false, length = 100)
     val bname: String,
