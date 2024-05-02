@@ -16,6 +16,9 @@ data class MemberEntity(
     @Column(nullable = false, length = 200)
     var email: String?,
 
+    @Column(name = "notification_email", nullable = true)
+    var notificationEmail: String?,
+
     @Column(nullable = false, length = 100)
     var name: String?,
 
@@ -35,8 +38,8 @@ data class MemberEntity(
     var typeCode: String?,
 
     @Column(name = "img_path")
-    var imgPath: String? = null
+    var imgPath: String? = null,
 ) {
-    constructor(): this(memberNo="", email = "", name = "", imgPath = "", typeCode = null, statusCode = null, regTime = null, lastLoginTime = null, modTime = null)
-    constructor(email: String, name: String, statusCode: MemberStatusCode, typeCode: MemberTypeCode, imgPath: String) : this(memberNo="", email, name = name, imgPath = imgPath, typeCode = typeCode.name, statusCode = statusCode.name, regTime = LocalDateTime.now(), lastLoginTime = LocalDateTime.now(), modTime = LocalDateTime.now())
+    constructor(): this(memberNo="", email = "", notificationEmail = "", name = "", imgPath = "", typeCode = null, statusCode = null, regTime = null, lastLoginTime = null, modTime = null)
+    constructor(email: String, name: String, statusCode: MemberStatusCode, typeCode: MemberTypeCode, imgPath: String) : this(memberNo="", email = email, notificationEmail = "", name = name, imgPath = imgPath, typeCode = typeCode.name, statusCode = statusCode.name, regTime = LocalDateTime.now(), lastLoginTime = LocalDateTime.now(), modTime = LocalDateTime.now())
 }

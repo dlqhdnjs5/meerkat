@@ -27,4 +27,9 @@ class MemberController (
     fun login(@Valid @NotNull @RequestBody loginMemberRequest: LoginMemberRequest): UserInfo {
         return memberSerivce.login(loginMemberRequest)
     }
+
+    @PostMapping("/send/address-check/mail")
+    fun sendAddressCheckMail(@RequestBody email: String) {
+        memberSerivce.sendAddressCheckMail(email)
+    }
 }

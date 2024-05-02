@@ -28,4 +28,10 @@ class GlobalPropertySource {
     lateinit var secretWebTokenKey: String
     @Value("\${meerkat.web.auth.header}")
     lateinit var authHeader: String
+    @Value("\${public.api.service.key}")
+    lateinit var publicApiServiceKey: String
+    @Value("\${smtp.gmail.app.password}")
+    lateinit var rawSmtpGmailAppPassword: String
+    val smtpGmailAppPassword: String
+        get() = rawSmtpGmailAppPassword.replace("_", " ")
 }

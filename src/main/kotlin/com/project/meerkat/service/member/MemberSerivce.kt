@@ -10,6 +10,7 @@ import com.project.meerkat.model.member.Member
 import com.project.meerkat.model.member.entity.MemberEntity
 import com.project.meerkat.repository.member.MemberJpaRepository
 import com.project.meerkat.repository.member.MemberRepository
+import com.project.meerkat.service.gmail.MailManager
 import org.apache.commons.lang3.ObjectUtils
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
@@ -20,12 +21,12 @@ class MemberSerivce(
     private val memberRepository: MemberRepository,
     private val modelMapper: ModelMapper,
     private val jwtService: JwtService,
-    private val memberJpaRepository: MemberJpaRepository
+    private val memberJpaRepository: MemberJpaRepository,
+    private val mailManager: MailManager
 ) {
     fun isExistMember(email: String): Boolean {
         return ObjectUtils.isNotEmpty(memberJpaRepository.findMemberByEmail(email))
     }
-
 
     fun getMemberByEmail(email: String): Member {
         return memberRepository.selectMemberByEmail(email)
@@ -62,6 +63,20 @@ class MemberSerivce(
         }
 
         return this.makeUserInfoWithJwtResponse(memberEntity)
+    }
+
+    fun sendAddressCheckMail(email: String) {
+        mailManager.send(email, "이메일 주소 확인 - Meerkat", getAddressCheckEmailContentTemplate())
+    }
+
+    private fun getAddressCheckEmailContentTemplate(): String {
+        return """
+            <div style='text-align: center;'>
+            <h1>Meerkat</h1>
+            <h2>이메일 주소가 확인 되었습니다.</h2>
+            <p>작성 중이시던 페이지로 돌아가 등록을 이어 주세요.</p>
+            </div>
+        """.trimIndent()
     }
 
     private fun makeUserInfoWithJwtResponse(memberEntity: MemberEntity): UserInfo {

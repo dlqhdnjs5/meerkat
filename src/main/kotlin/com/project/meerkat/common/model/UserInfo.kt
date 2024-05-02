@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 data class UserInfo (
     var memberNo: String,
     var email: String,
+    var notificationEmail:String,
     var name: String,
     var imgPath: String,
     var typeCode: MemberTypeCode?,
@@ -15,6 +16,6 @@ data class UserInfo (
     var lastLoginTime: LocalDateTime?,
     var jwtToken: String?,
 ) : JwtToken(jwtToken) {
-    constructor() : this("", "", "", "", MemberTypeCode.USER, MemberStatusCode.ACTIVE, null, null, null)
+    constructor() : this("", "", "", "", "", MemberTypeCode.USER, MemberStatusCode.ACTIVE, null, null, null)
 }
 
