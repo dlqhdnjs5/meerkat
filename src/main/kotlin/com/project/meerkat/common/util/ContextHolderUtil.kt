@@ -1,12 +1,17 @@
 package com.project.meerkat.common.util
 
 import com.project.meerkat.common.model.UserInfo
+import com.project.meerkat.exception.CommonException
+import com.project.meerkat.exception.ErrorCode
+import org.apache.commons.lang3.ObjectUtils
+import org.apache.commons.lang3.StringUtils
+import org.springframework.http.HttpStatus
 
 class ContextHolderUtil {
     companion object {
-        var userInfoThreadLocal = ThreadLocal<UserInfo>()
+        private var userInfoThreadLocal = ThreadLocal<UserInfo>()
 
-        fun getUserInfo(): UserInfo? {
+        private fun getUserInfo(): UserInfo? {
             return userInfoThreadLocal.get()
         }
 
@@ -16,6 +21,15 @@ class ContextHolderUtil {
 
         fun clearUserInfo() {
             userInfoThreadLocal.remove()
+        }
+
+        fun getUserInfoWithCheck(): UserInfo {
+            val userInfo = getUserInfo()
+            if (ObjectUtils.isEmpty(userInfo) || StringUtils.isEmpty(userInfo?.memberNo)) {
+                throw CommonException(ErrorCode.AUTHENTICATION_REQUIRED, "NotificationService.addNotification() userInfo doesn't exist. check login.", HttpStatus.UNAUTHORIZED)
+            }
+
+            return userInfo!!
         }
     }
 }

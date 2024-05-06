@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 data class Member(
     var memberNo: String?,
     var email: String,
+    var notificationEmail: String,
     var name: String,
     var imgPath: String,
     var typeCode: MemberTypeCode?,
@@ -16,5 +17,5 @@ data class Member(
     var regTime: LocalDateTime?,
     var lastLoginTime: LocalDateTime?,
 ) {
-    constructor(): this(memberNo="", email = "", name = "", imgPath = "", typeCode = null, statusCode = null, regTime = null, lastLoginTime = null)
+    constructor(): this(memberNo="", email = "", notificationEmail= "", name = "", imgPath = "", typeCode = null, statusCode = null, regTime = null, lastLoginTime = null)
 }

@@ -3,6 +3,7 @@ package com.project.meerkat.controller.notification
 import com.project.meerkat.model.notification.AddNotificationRequest
 import com.project.meerkat.model.notification.ModifyNotificationRequest
 import com.project.meerkat.model.notification.NotificationEntity
+import com.project.meerkat.service.gmail.MailManager
 import com.project.meerkat.service.notification.NotificationService
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -10,7 +11,8 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/notifications")
 class NotificationController(
-    val notificationService: NotificationService
+    val notificationService: NotificationService,
+    val mailManager: MailManager
 ) {
     @PostMapping
     fun addNotification(@RequestBody @Valid addNotificationRequest: AddNotificationRequest) {

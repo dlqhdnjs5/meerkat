@@ -45,11 +45,22 @@ class NotificationJpaRepository(
             throw CommonException(ErrorCode.BAD_REQUEST, "There is no notification. notificationNo: ${notificationNo}, memberNo: ${memberNo}", HttpStatus.BAD_REQUEST)
         }
 
-        notificationEntity?.let { entityManager.remove(it) }
+        entityManager.remove(notificationEntity)
     }
 
     fun updateNotification(notificationEntity: NotificationEntity) {
         notificationEntity.modTime = LocalDateTime.now()
         entityManager.merge(notificationEntity)
+    }
+    fun selectSigunguCodesForBatch(): List<String> {
+        val query: TypedQuery<String> = entityManager.createQuery(
+            """
+                SELECT n.sigunguCode 
+                FROM NotificationEntity n JOIN n.memberEntity m 
+                WHERE m.statusCode = 'ACTIVE' AND m.notificationEmail IS NOT NULL
+                AND n.enable = TRUE
+            """.trimIndent(), String::class.java
+        )
+        return query.resultList
     }
 }

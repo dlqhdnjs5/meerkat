@@ -32,4 +32,9 @@ class MemberController (
     fun sendAddressCheckMail(@RequestBody email: String) {
         memberSerivce.sendAddressCheckMail(email)
     }
+
+    @PutMapping("/notification-email/{notificationEmail}")
+    fun updateNotificationEmail(@PathVariable("notificationEmail") notificationEmail: String): UserInfo {
+        return memberSerivce.updateMemberNotificationEmail(notificationEmail)
+    }
 }

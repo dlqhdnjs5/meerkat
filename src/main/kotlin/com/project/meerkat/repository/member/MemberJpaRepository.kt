@@ -23,8 +23,7 @@ class MemberJpaRepository(
         entityManager.persist(memberEntity)
     }
 
-    fun updateLastLoginTime(memberEntity: MemberEntity) {
-        memberEntity.lastLoginTime = LocalDateTime.now()
+    fun updateMember(memberEntity: MemberEntity) {
         entityManager.merge(memberEntity)
     }
 

@@ -1,12 +1,9 @@
 package com.project.meerkat.model.notification
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.project.meerkat.model.member.entity.MemberEntity
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "notification")
@@ -26,13 +23,13 @@ data class NotificationEntity(
     val bname: String,
 
     @Column(name = "bcode", nullable = false)
-    val bcode: Long,
+    val bcode: String,
 
     @Column(name = "post_no", nullable = false)
-    val postNo: Long,
+    val postNo: String,
 
     @Column(name = "sigungu_code", nullable = false)
-    val sigunguCode: Long,
+    val sigunguCode: String,
 
     @Column(name = "user_address", nullable = false, length = 300)
     val userAddress: String,
@@ -47,5 +44,10 @@ data class NotificationEntity(
     var regTime: LocalDateTime,
 
     @Column(name = "mod_time", nullable = false)
-    var modTime: LocalDateTime
+    var modTime: LocalDateTime,
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_no", referencedColumnName = "member_no", insertable = false, updatable = false)
+    var memberEntity: MemberEntity? = null
 )

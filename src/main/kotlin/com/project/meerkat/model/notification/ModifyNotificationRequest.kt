@@ -9,4 +9,5 @@ data class ModifyNotificationRequest(
     val name: String,
     @get:NotEmpty
     val notiTime: String,
+    val enable: Boolean
 )

@@ -25,7 +25,6 @@ class ContextHoldInterceptor(
             val email = jwtService.getClaimSubjectFromJwt(token)
 
             if (email != null) {
-                // TODO jpa 로 변경
                 val memberEntity = memberService.getMemberByEmail(email)
 
                 if (ObjectUtils.isEmpty(memberEntity)) {
