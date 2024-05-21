@@ -5,6 +5,8 @@
 ## 기술 스택
 - Kotlin
 - Springboot
+- Spring batch
+- Spring schedular
 - Jpa
 - Mybatis
 - MySQL
