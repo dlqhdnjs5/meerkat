@@ -56,17 +56,4 @@ class DataSourceConfig(
 
         return entityManagerFactoryBean
     }
-
-    @Bean
-    fun transactionManager(): PlatformTransactionManager {
-        val transactionManager = JpaTransactionManager()
-        transactionManager.entityManagerFactory = entityManagerFactory().getObject()
-
-        return transactionManager
-    }
-
-    @Bean
-    fun exceptionTranslation(): PersistenceExceptionTranslationPostProcessor{
-        return PersistenceExceptionTranslationPostProcessor();
-    }
 }

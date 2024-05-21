@@ -26,7 +26,7 @@ class NotificationJpaRepository(
         return query.resultList
     }
 
-    fun selectNotificationByMemberNo(notificationNo: String, memberNo: String): NotificationEntity? {
+    fun selectNotificationByNotificationNoAndMemberNo(notificationNo: String, memberNo: String): NotificationEntity? {
         val jpql = "SELECT n FROM NotificationEntity n WHERE n.notificationNo = :notificationNo AND n.memberNo = :memberNo"
         val query: TypedQuery<NotificationEntity> = entityManager.createQuery(jpql, NotificationEntity::class.java)
         query.setParameter("notificationNo", notificationNo)
@@ -48,15 +48,12 @@ class NotificationJpaRepository(
         entityManager.remove(notificationEntity)
     }
 
-    fun updateNotification(notificationEntity: NotificationEntity) {
-        notificationEntity.modTime = LocalDateTime.now()
-        entityManager.merge(notificationEntity)
-    }
     fun selectSigunguCodesForBatch(): List<String> {
         val query: TypedQuery<String> = entityManager.createQuery(
             """
-                SELECT n.sigunguCode 
-                FROM NotificationEntity n JOIN n.memberEntity m 
+                SELECT DISTINCT n.sigunguCode 
+                FROM NotificationEntity n 
+                INNER JOIN n.memberEntity m 
                 WHERE m.statusCode = 'ACTIVE' AND m.notificationEmail IS NOT NULL
                 AND n.enable = TRUE
             """.trimIndent(), String::class.java

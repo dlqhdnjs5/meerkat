@@ -49,5 +49,5 @@ data class NotificationEntity(
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_no", referencedColumnName = "member_no", insertable = false, updatable = false)
-    var memberEntity: MemberEntity? = null
+    var memberEntity: MemberEntity
 )

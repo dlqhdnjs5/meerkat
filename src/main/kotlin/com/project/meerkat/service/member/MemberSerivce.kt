@@ -69,7 +69,6 @@ class MemberSerivce(
                 lastLoginTime = LocalDateTime.now()
                 modTime = LocalDateTime.now()
             }
-            memberJpaRepository.updateMember(memberEntity)
         }
 
         return this.makeUserInfoWithJwtResponse(memberEntity)
@@ -83,13 +82,10 @@ class MemberSerivce(
 
         val userInfo = ContextHolderUtil.getUserInfoWithCheck()
         val memberEntity = modelMapper.map(userInfo, MemberEntity::class.java)
-
         memberEntity!!.apply {
             this.notificationEmail = notificationEmail
             modTime = LocalDateTime.now()
         }
-
-        memberJpaRepository.updateMember(memberEntity)
 
         return this.makeUserInfoWithJwtResponse(memberEntity)
     }

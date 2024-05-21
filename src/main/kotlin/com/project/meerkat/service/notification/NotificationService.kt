@@ -18,7 +18,7 @@ import javax.transaction.Transactional
 @Service
 class NotificationService(
     val modelMapper: ModelMapper,
-    val notificationJpaRepository: NotificationJpaRepository
+    val notificationJpaRepository: NotificationJpaRepository,
 ) {
     @Transactional
     fun addNotification(addNotificationRequest: AddNotificationRequest) {
@@ -46,7 +46,7 @@ class NotificationService(
     fun getNotification(notificationNo: String): NotificationEntity {
         val userInfo = ContextHolderUtil.getUserInfoWithCheck()
 
-        val notificationEntity = notificationJpaRepository.selectNotificationByMemberNo(notificationNo, userInfo.memberNo)
+        val notificationEntity = notificationJpaRepository.selectNotificationByNotificationNoAndMemberNo(notificationNo, userInfo.memberNo)
         if (ObjectUtils.isEmpty(notificationEntity)) {
             throw CommonException(ErrorCode.NOT_FOUND, "notification is not exist.", HttpStatus.NOT_FOUND)
         }
@@ -71,7 +71,7 @@ class NotificationService(
     @Transactional
     fun modifyNotification(modifyNotificationRequest: ModifyNotificationRequest) {
         val userInfo = ContextHolderUtil.getUserInfoWithCheck()
-        val notificationEntity = notificationJpaRepository.selectNotificationByMemberNo(modifyNotificationRequest.notificationNo, userInfo.memberNo)
+        val notificationEntity = notificationJpaRepository.selectNotificationByNotificationNoAndMemberNo(modifyNotificationRequest.notificationNo, userInfo.memberNo)
         if (ObjectUtils.isEmpty(notificationEntity)) {
             throw CommonException(ErrorCode.NOT_FOUND, "notification is not exist.", HttpStatus.NOT_FOUND)
         }
@@ -80,9 +80,8 @@ class NotificationService(
             name = modifyNotificationRequest.name
             notiTime = modifyNotificationRequest.notiTime
             enable = modifyNotificationRequest.enable
+            modTime = LocalDateTime.now()
         }
-
-        notificationJpaRepository.updateNotification(notificationEntity)
     }
 
     fun getAllSigunguCodes(): List<String> {

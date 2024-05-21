@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.meerkat.repository.apartment.ApartmentRepository">
+    <insert id="insertApartmentTrades" parameterType="list">
+        INSERT INTO apartment_trade
+        (   dealAmount
+        ,   buildYear
+        ,   year
+        ,   roadName
+        ,   roadNameBonbun
+        ,   roadNameBubun
+        ,   roadNameSigunguCode
+        ,   roadNameSeq
+        ,   roadNameBasementCode
+        ,   roadNameCode
+        ,   dong
+        ,   bonbun
+        ,   bubun
+        ,   sigunguCode
+        ,   eubmyundongCode
+        ,   landCode
+        ,   apartmentName
+        ,   month
+        ,   day
+        ,   exclusiveArea
+        ,   jibun
+        ,   regionalCode
+        ,   floor
+        ,   cancelDealType
+        ,   cancelDealDay
+        ,   reqGbn
+        ,   rdealerLawdnm
+        ,   registrationDate
+        ,   sellerGbn
+        ,   buyerGbn
+        ,   apartmentDong
+        ,   mig_date
+        )
+        VALUES
+        <foreach collection="apartmentTradeEntities" item="apartmentTradeItem" separator=",">
+        (   #{apartmentTradeItem.dealAmount}
+        ,   #{apartmentTradeItem.buildYear}
+        ,   #{apartmentTradeItem.year}
+        ,   #{apartmentTradeItem.roadName}
+        ,   #{apartmentTradeItem.roadNameBonbun}
+        ,   #{apartmentTradeItem.roadNameBubun}
+        ,   #{apartmentTradeItem.roadNameSigunguCode}
+        ,   #{apartmentTradeItem.roadNameSeq}
+        ,   #{apartmentTradeItem.roadNameBasementCode}
+        ,   #{apartmentTradeItem.roadNameCode}
+        ,   #{apartmentTradeItem.dong}
+        ,   #{apartmentTradeItem.bonbun}
+        ,   #{apartmentTradeItem.bubun}
+        ,   #{apartmentTradeItem.sigunguCode}
+        ,   #{apartmentTradeItem.eubmyundongCode}
+        ,   #{apartmentTradeItem.landCode}
+        ,   #{apartmentTradeItem.apartmentName}
+        ,   #{apartmentTradeItem.month}
+        ,   #{apartmentTradeItem.day}
+        ,   #{apartmentTradeItem.exclusiveArea}
+        ,   #{apartmentTradeItem.jibun}
+        ,   #{apartmentTradeItem.regionalCode}
+        ,   #{apartmentTradeItem.floor}
+        ,   #{apartmentTradeItem.cancelDealType}
+        ,   #{apartmentTradeItem.cancelDealDay}
+        ,   #{apartmentTradeItem.reqGbn}
+        ,   #{apartmentTradeItem.rdealerLawdnm}
+        ,   #{apartmentTradeItem.registrationDate}
+        ,   #{apartmentTradeItem.sellerGbn}
+        ,   #{apartmentTradeItem.buyerGbn}
+        ,   #{apartmentTradeItem.apartmentDong}
+        ,   #{apartmentTradeItem.migDate}
+        )
+        </foreach>
+    </insert>
+</mapper>
